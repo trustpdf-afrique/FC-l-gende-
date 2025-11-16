@@ -50,15 +50,6 @@ th{background:#1da3ff;color:white}
   <section id="panel-actu" class="panel active">
     <h1>ACTUALITÉS</h1>
     <div id="newsList"></div>
-   <script>
-  addNews({
-  source: "FC Légende",
-  title: "Nouvelle recrue annoncée",
-  description: "Le club a recruté un nouveau joueur pour la saison prochaine.",
-  image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Stade_de_football.jpg",
-  time: "il y a 30 min"
-});
-   </script>
   </section>
 
   <!-- PROFIL JOUEURS -->
@@ -107,6 +98,16 @@ navItems.forEach(btn=>{
 /* ------------------ NEWS ------------------ */
 let news = JSON.parse(localStorage.getItem('news')) || [];
 const newsList = document.getElementById('newsList');
+
+// Fonction pour ajouter une actualité
+function addNews(newItem){
+  let news = JSON.parse(localStorage.getItem('news')) || [];
+  news.push(newItem);                      
+  localStorage.setItem('news', JSON.stringify(news));
+  renderNews();
+}
+
+// Affichage des actualités
 function renderNews(){
   newsList.innerHTML = '';
   [...news].reverse().forEach(n=>{

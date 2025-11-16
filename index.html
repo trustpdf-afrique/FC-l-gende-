@@ -51,23 +51,13 @@ th{background:#1da3ff;color:white}
     <h1>ACTUALITÉS</h1>
     <div id="newsList"></div>
    <script>
-  // ⚡ Ajouter une actualité directement
-  let storedNews = JSON.parse(localStorage.getItem('news')) || [];
-
-  // Nouvelle actualité pro
-  storedNews.push({
-    source: "bienvenue",
-    title: "FC Légende gagne le championnat",
-    description: "Le FC Légende a remporté le match final avec un score incroyable, sous les acclamations des supporters.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Stade_de_football.jpg",
-    time: "il y a 2h"
-  });
-
-  // Sauvegarder dans localStorage
-  localStorage.setItem('news', JSON.stringify(storedNews));
-
-  // Afficher dans l'application
-  renderNews();
+  addNews({
+  source: "FC Légende",
+  title: "Nouvelle recrue annoncée",
+  description: "Le club a recruté un nouveau joueur pour la saison prochaine.",
+  image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Stade_de_football.jpg",
+  time: "il y a 30 min"
+});
    </script>
   </section>
 
@@ -186,9 +176,9 @@ function renderMatchs(){
     div.className='match-card card';
     div.innerHTML=`<div class="card-header"><div class="icon-soccer">⚽</div><div>Match récent</div></div>
       <div class="match-row">
-        <div class="team"><div class="flag-match"><img src="${m.logoA||''}" alt="logo A"></div><div class="team-name-match">${escapeHtml(m.teamA||'ZAKA')}</div></div>
-        <div class="score-match">${m.score||'2 : 3'}</div>
-        <div class="team" style="justify-content:flex-end"><div class="team-name-match">${escapeHtml(m.teamB||'DAL')}</div><div class="flag-match"><img src="${m.logoB||''}" alt="logo B"></div></div>
+        <div class="team"><div class="flag-match"><img src="${m.logoA||''}" alt="logo A"></div><div class="team-name-match">${escapeHtml(m.teamA||'Équipe A')}</div></div>
+        <div class="score-match">${m.score||'0 : 0'}</div>
+        <div class="team" style="justify-content:flex-end"><div class="team-name-match">${escapeHtml(m.teamB||'Équipe B')}</div><div class="flag-match"><img src="${m.logoB||''}" alt="logo B"></div></div>
       </div>
       <div class="meta">${escapeHtml(m.meta||'Infos du match…')}</div>`;
     container.appendChild(div);
@@ -207,4 +197,4 @@ function init(){
 init();
 </script>
 </body>
-  </html>
+</html>

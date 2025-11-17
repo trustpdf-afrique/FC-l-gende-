@@ -1,201 +1,117 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html><html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>FC Légende</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial, Helvetica, sans-serif;background:#f5f5f5;color:#0f1724;}
-header{background:orange;color:white;text-align:center;padding:18px;font-size:28px;font-weight:800;letter-spacing:1px;}
-main{padding:18px;padding-bottom:120px;min-height:100vh;}
-h1{text-align:left;margin:12px 0;font-size:20px;}
-.bottom-nav{position:fixed;left:0;right:0;bottom:0;height:70px;display:flex;justify-content:space-around;align-items:center;background:#0a76db;border-top:2px solid #005bb5;z-index:1000}
-.nav-item{flex:1;text-align:center;color:white;font-weight:700;cursor:pointer;padding:10px 6px;font-size:14px}
-.nav-item.active{background:linear-gradient(180deg,#1da3ff,#0077e6);border-radius:8px}
-.panel{display:none}
-.panel.active{display:block}
-/* Cards */
-.card{background:white;border-radius:12px;box-shadow:0 6px 14px rgba(0,0,0,0.08);padding:12px;margin-bottom:12px}
-.news-item img{float:right;margin-left:10px;width:100px;height:auto;border-radius:6px}
-/* Players */
-.players-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
-.player-card{background:rgba(0,0,0,0.45);color:white;border-radius:14px;padding:12px;text-align:center;position:relative}
-.player-card img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:8px}
-/* Buteurs */
-table{width:100%;border-collapse:collapse;background:white;border-radius:10px;overflow:hidden}
-th,td{padding:8px;border:1px solid #ddd;text-align:center}
-th{background:#1da3ff;color:white}
-/* Matches */
-.match-container{max-width:900px;margin:0 auto;display:grid;gap:14px}
-.match-card{background:white;border-radius:12px;padding:12px;box-shadow:0 6px 14px rgba(0,0,0,0.06)}
-.card-header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.icon-soccer{width:36px;height:36px;display:inline-grid;place-items:center;background:#eef2f3;border-radius:8px}
-.match-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.team{display:flex;align-items:center;gap:8px;min-width:0}
-.flag-match{width:42px;height:42px;border-radius:50%;overflow:hidden;background:#eee}
-.flag-match img{width:100%;height:100%;object-fit:cover}
-.team-name-match{font-weight:700;min-width:80px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.score-match{font-weight:800;font-size:18px;min-width:70px;text-align:center}
-.meta{font-size:13px;color:#777;margin-top:8px}
-/* small responsiveness */
-@media (max-width:520px){ header{font-size:20px;padding:12px} .team-name-match{max-width:110px} }
-</style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FC LÉGENDE</title>
+    <!-- Font Awesome pour icônes modernes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+        }
+        /* EN-TÊTE */
+        .header {
+            background: #0057b7;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        /* CONTENU */
+        .page {
+            display: none;
+            padding: 20px;
+        }
+        .active {
+            display: block;
+        }
+        /* ONGLET BAS */
+        .tabs {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: transparent;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+        .tab {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 28px;
+            margin: 0 6px;
+            color: white;
+            transition: transform 0.2s;
+        }
+        .tab:hover {
+            transform: scale(1.2);
+        }
+        .selected {
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .tab-actus { background: #ff6666; }
+        .tab-profil { background: #3399ff; }
+        .tab-match { background: #33cc66; }
+        .tab-buteurs { background: #ffcc33; color: black; }
+        .tab-accueil { background: #9966ff; }
+    </style>
 </head>
-<body>
-<header>FC LÉGENDE</header>
+<body><!-- EN-TÊTE -->
+<div class="header">FC LÉGENDE</div>
 
-<main>
-  <!-- ACTUALITÉS -->
-  <section id="panel-actu" class="panel active">
-    <h1>ACTUALITÉS</h1>
-    <div id="newsList"></div>
-  </section>
+<!-- PAGES -->
+<div id="accueil" class="page">
+    <h2>Accueil</h2>
+    <p>Ici nous allons mettre la description de l'application et la photo du Président.</p>
+</div>
 
-  <!-- PROFIL JOUEURS -->
-  <section id="panel-profil" class="panel">
-    <h1>PROFILS JOUEURS</h1>
-    <div id="playersGrid" class="players-grid"></div>
-  </section>
+<div id="actus" class="page active">
+    <h2>Actualités</h2>
+    <p>Ici nous allons mettre les actualités du club.</p>
+</div>
 
-  <!-- BUTEURS -->
-  <section id="panel-buteurs" class="panel">
-    <h1>BUTEURS</h1>
-    <div class="card">
-      <table id="buteursTable">
-        <thead><tr><th>Joueur</th><th>Buts</th></tr></thead>
-        <tbody id="buteursBody"></tbody>
-      </table>
-    </div>
-  </section>
+<div id="profil" class="page">
+    <h2>Profil des joueurs</h2>
+    <p>Ici nous allons afficher la liste des joueurs.</p>
+</div>
 
-  <!-- MATCHS RÉCENTS -->
-  <section id="panel-matchs" class="panel">
-    <h1>MATCHS RÉCENTS</h1>
-    <div class="match-container" id="cardsContainer"></div>
-  </section>
-</main>
+<div id="match" class="page">
+    <h2>Matchs</h2>
+    <p>Ici nous allons mettre les matchs récents et à venir.</p>
+</div>
 
-<nav class="bottom-nav">
-  <div class="nav-item active" data-target="panel-actu">Actu</div>
-  <div class="nav-item" data-target="panel-profil">Profil</div>
-  <div class="nav-item" data-target="panel-buteurs">Buteurs</div>
-  <div class="nav-item" data-target="panel-matchs">Matchs</div>
-</nav>
+<div id="buteurs" class="page">
+    <h2>Buteurs</h2>
+    <p>Ici nous allons mettre la liste des meilleurs buteurs.</p>
+</div>
+
+<!-- ONGLET BAS AVEC ICONES MODERNES -->
+<div class="tabs">
+    <div class="tab tab-actus selected" onclick="showPage('actus', this)"><i class="fas fa-newspaper"></i></div>
+    <div class="tab tab-profil" onclick="showPage('profil', this)"><i class="fas fa-user"></i></div>
+    <div class="tab tab-match" onclick="showPage('match', this)"><i class="fas fa-futbol"></i></div>
+    <div class="tab tab-buteurs" onclick="showPage('buteurs', this)"><i class="fas fa-bullseye"></i></div>
+    <div class="tab tab-accueil" onclick="showPage('accueil', this)"><i class="fas fa-home"></i></div>
+</div>
 
 <script>
-/* ------------------ Navigation ------------------ */
-const navItems = document.querySelectorAll('.nav-item');
-const panels = document.querySelectorAll('.panel');
-navItems.forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    panels.forEach(p=>p.classList.remove('active'));
-    document.getElementById(btn.dataset.target).classList.add('active');
-    navItems.forEach(n=>n.classList.toggle('active', n===btn));
-  });
-});
+    function showPage(pageId, element) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
 
-/* ------------------ NEWS ------------------ */
-let news = JSON.parse(localStorage.getItem('news')) || [];
-const newsList = document.getElementById('newsList');
-
-// Fonction pour ajouter une actualité
-function addNews(newItem){
-  let news = JSON.parse(localStorage.getItem('news')) || [];
-  news.push(newItem);                      
-  localStorage.setItem('news', JSON.stringify(news));
-  renderNews();
-}
-
-// Affichage des actualités
-function renderNews(){
-  newsList.innerHTML = '';
-  [...news].reverse().forEach(n=>{
-    const div = document.createElement('div');
-    div.className = 'card news-item';
-    div.innerHTML = `${n.image ? `<img src="${n.image}" alt="image">` : ''}
-      <div>
-        <div style="font-size:12px;color:#666">${escapeHtml(n.source||'')}</div>
-        <div style="font-weight:800;font-size:16px;margin-top:6px">${escapeHtml(n.title||'')}</div>
-        <div style="margin-top:6px">${escapeHtml(n.description||'')}</div>
-        <div style="font-size:12px;color:#888;margin-top:8px">${escapeHtml(n.time||'')}</div>
-      </div>`;
-    newsList.appendChild(div);
-  });
-}
-
-/* ------------------ PLAYERS ------------------ */
-let players = JSON.parse(localStorage.getItem('players')) || [
-  {name:"Unai Simon", club:"Athletic Bilbao · GK", country:"Espagne", age:28, img:"https://upload.wikimedia.org/wikipedia/commons/7/7b/Unai_Sim%C3%B3n_%28cropped%29.jpg"},
-  {name:"Kylian Mbappé", club:"Paris SG · Attaquant", country:"France", age:26, img:"https://upload.wikimedia.org/wikipedia/commons/c/c3/Kylian_Mbapp%C3%A9_2022.jpg"},
-  {name:"Lionel Messi", club:"Inter Miami · Attaquant", country:"Argentine", age:36, img:"https://upload.wikimedia.org/wikipedia/commons/8/8c/Lionel_Messi_20180626.jpg"},
-  {name:"Neymar", club:"Al-Hilal · Attaquant", country:"Brésil", age:31, img:"https://upload.wikimedia.org/wikipedia/commons/2/2e/Neymar_2018.jpg"},
-  {name:"Luka Modric", club:"Real Madrid · Milieu", country:"Croatie", age:38, img:"https://upload.wikimedia.org/wikipedia/commons/0/03/Luka_Modric_2018.jpg"},
-  {name:"Mohamed Salah", club:"Liverpool · Attaquant", country:"Egypte", age:31, img:"https://upload.wikimedia.org/wikipedia/commons/0/09/Mohamed_Salah_2018.jpg"}
-];
-const playersGrid = document.getElementById('playersGrid');
-function renderPlayers(){
-  playersGrid.innerHTML = '';
-  players.forEach(p=>{
-    const card = document.createElement('div');
-    card.className='player-card card';
-    card.innerHTML = `<img src="${p.img}" alt="img">
-      <div class="player-name">${escapeHtml(p.name)}</div>
-      <div class="player-club" style="font-size:13px;color:#ddd;margin-top:6px">${escapeHtml(p.club)}</div>
-      <div class="player-country" style="font-size:13px;color:#ddd;margin-top:6px">${escapeHtml(p.country)}</div>
-      <div class="player-age" style="font-size:13px;color:#ddd;margin-top:6px">Âge : ${escapeHtml(String(p.age))}</div>`;
-    playersGrid.appendChild(card);
-  });
-}
-
-/* ------------------ BUTEURS ------------------ */
-let buteurs = JSON.parse(localStorage.getItem('buteurs')) || [
-  {name:'Mbappé', goals:0},
-  {name:'Messi', goals:0},
-  {name:'Ronaldo', goals:0},
-  {name:'Neymar', goals:0},
-  {name:'Modric', goals:0},
-  {name:'Salah', goals:0}
-];
-const buteursBody = document.getElementById('buteursBody');
-function renderButeurs(){
-  buteursBody.innerHTML='';
-  buteurs.forEach(b=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${escapeHtml(b.name)}</td><td>${b.goals}</td>`;
-    buteursBody.appendChild(tr);
-  });
-}
-
-/* ------------------ MATCHS ------------------ */
-let matchs = JSON.parse(localStorage.getItem('matchsRecent')) || [];
-const container = document.getElementById('cardsContainer');
-function renderMatchs(){
-  container.innerHTML='';
-  matchs.forEach(m=>{
-    const div=document.createElement('div');
-    div.className='match-card card';
-    div.innerHTML=`<div class="card-header"><div class="icon-soccer">⚽</div><div>Match récent</div></div>
-      <div class="match-row">
-        <div class="team"><div class="flag-match"><img src="${m.logoA||''}" alt="logo A"></div><div class="team-name-match">${escapeHtml(m.teamA||'Équipe A')}</div></div>
-        <div class="score-match">${m.score||'0 : 0'}</div>
-        <div class="team" style="justify-content:flex-end"><div class="team-name-match">${escapeHtml(m.teamB||'Équipe B')}</div><div class="flag-match"><img src="${m.logoB||''}" alt="logo B"></div></div>
-      </div>
-      <div class="meta">${escapeHtml(m.meta||'Infos du match…')}</div>`;
-    container.appendChild(div);
-  });
-}
-
-/* ------------------ Helpers & Init ------------------ */
-function escapeHtml(s){ return (s+'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-
-function init(){
-  renderNews();
-  renderPlayers();
-  renderButeurs();
-  renderMatchs();
-}
-init();
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('selected'));
+        element.classList.add('selected');
+    }
 </script>
+
 </body>
 </html>

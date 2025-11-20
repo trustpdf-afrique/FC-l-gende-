@@ -1,16 +1,20 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FC LÉGENDE</title>
-    <!-- Font Awesome pour icônes modernes -->
+
+    <!-- Font Awesome pour icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #f2f2f2;
         }
+
         /* EN-TÊTE */
         .header {
             background: #0057b7;
@@ -20,7 +24,8 @@
             font-size: 22px;
             font-weight: bold;
         }
-        /* CONTENU */
+
+        /* CONTENU DES PAGES */
         .page {
             display: none;
             padding: 20px;
@@ -28,6 +33,7 @@
         .active {
             display: block;
         }
+
         /* ONGLET BAS */
         .tabs {
             position: fixed;
@@ -39,79 +45,117 @@
             justify-content: space-around;
             padding: 10px;
         }
+
         .tab {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-radius: 15px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 28px;
-            margin: 0 6px;
+            font-size: 22px;
+            margin: 0 8px;
             color: white;
             transition: transform 0.2s;
+            padding: 5px;
         }
+
         .tab:hover {
             transform: scale(1.2);
         }
+
         .selected {
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            box-shadow: 0 0 10px rgba(0,0,0,0.4);
         }
+
+        /* COULEURS DES ONGLES */
         .tab-actus { background: #ff6666; }
         .tab-profil { background: #3399ff; }
         .tab-match { background: #33cc66; }
         .tab-buteurs { background: #ffcc33; color: black; }
         .tab-accueil { background: #9966ff; }
+
+        /* Labels sous icônes */
+        .tab .label {
+            font-size: 10px;
+            font-weight: bold;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
     </style>
 </head>
-<body><!-- EN-TÊTE -->
-<div class="header">FC LÉGENDE</div>
 
-<!-- PAGES -->
-<div id="accueil" class="page">
-    <h2>ACCUEIL</h2>
-    <p>Ici nous allons mettre la description de l'application et la photo du Président.</p>
-</div>
+<body>
 
-<div id="actus" class="page active">
-<h2/>ACTUALITÉS</h2>
-    <p>Ici nous allons mettre les actualités du club.</p>
-</div>
+    <!-- EN-TÊTE -->
+    <div class="header">FC LÉGENDE</div>
 
-<div id="profil" class="page">
-    <h2>PROFILS DES JOUEURS</h2>
-    <p>Ici nous allons afficher la liste des joueurs.</p>
-</div>
+    <!-- PAGES -->
+    <div id="accueil" class="page">
+        <h2>Accueil</h2>
+        <p>Ici nous allons mettre la description de l'application et la photo du Président.</p>
+    </div>
 
-<div id="match" class="page">
-    <h2>MATCHS</h2>
-    <p>Ici nous allons mettre les matchs récents et à venir.</p>
-</div>
+    <div id="actus" class="page active">
+        <h2>Actualités</h2>
+        <p>Ici nous allons mettre les actualités du club.</p>
+    </div>
 
-<div id="buteurs" class="page">
-    <h2>BUTEURS</h2>
-    <p>Ici nous allons mettre la liste des meilleurs buteurs.</p>
-</div>
+    <div id="profil" class="page">
+        <h2>Profil des joueurs</h2>
+        <p>Ici nous allons afficher la liste des joueurs.</p>
+    </div>
 
-<!-- ONGLET BAS AVEC ICONES MODERNES -->
-<div class="tabs">
-    <div class="tab tab-actus selected" onclick="showPage('actus', this)"><i class="fas fa-newspaper"></i></div>
-    <div class="tab tab-profil" onclick="showPage('profil', this)"><i class="fas fa-user"></i></div>
-    <div class="tab tab-match" onclick="showPage('match', this)"><i class="fas fa-futbol"></i></div>
-    <div class="tab tab-buteurs" onclick="showPage('buteurs', this)"><i class="fas fa-bullseye"></i></div>
-    <div class="tab tab-accueil" onclick="showPage('accueil', this)"><i class="fas fa-home"></i></div>
-</div>
+    <div id="match" class="page">
+        <h2>Matchs</h2>
+        <p>Ici nous allons mettre les matchs récents et à venir.</p>
+    </div>
 
-<script>
-    function showPage(pageId, element) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(pageId).classList.add('active');
+    <div id="buteurs" class="page">
+        <h2>Buteurs</h2>
+        <p>Ici nous allons mettre la liste des meilleurs buteurs.</p>
+    </div>
 
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('selected'));
-        element.classList.add('selected');
-    }
-</script>
+    <!-- ONGLET BAS -->
+    <div class="tabs">
+
+        <div class="tab tab-actus selected" onclick="showPage('actus', this)">
+            <i class="fas fa-newspaper"></i>
+            <span class="label">Actus</span>
+        </div>
+
+        <div class="tab tab-profil" onclick="showPage('profil', this)">
+            <i class="fas fa-user"></i>
+            <span class="label">Profil</span>
+        </div>
+
+        <div class="tab tab-match" onclick="showPage('match', this)">
+            <i class="fas fa-futbol"></i>
+            <span class="label">Match</span>
+        </div>
+
+        <div class="tab tab-buteurs" onclick="showPage('buteurs', this)">
+            <i class="fas fa-bullseye"></i>
+            <span class="label">Buteurs</span>
+        </div>
+
+        <div class="tab tab-accueil" onclick="showPage('accueil', this)">
+            <i class="fas fa-home"></i>
+            <span class="label">Accueil</span>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId, element) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+    </script>
 
 </body>
 </html>

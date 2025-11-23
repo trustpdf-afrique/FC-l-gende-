@@ -3,218 +3,174 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Real Madrid - Mock Play Store</title>
+<title>Real Madrid - App</title>
 <style>
   :root{
-    --bg:#ffffff;
-    --page-bg:#f6f7fb;
-    --primary:#0b3b82; /* bleu profond bouton */
-    --muted:#6b7280; /* gris texte */
-    --card-bg:#ffffff;
-    --accent:#2b6cb0;
-    --pill-border:#e6e7ee;
+    --primary:#0b3b82;
+    --muted:#6b7280;
+    --bg:#f6f7fb;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
+  *{margin:0;padding:0;box-sizing:border-box}
   body{
-    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-    background:var(--page-bg);
+    font-family: Inter, Arial, sans-serif;
+    background:var(--bg);
     color:#0f1724;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    line-height:1.2;
   }
 
-  /* container */
-  .app{
-    max-width:420px;
-    margin:18px auto;
-    background:transparent;
-    padding:12px;
-  }
+  .app{max-width:420px;margin:20px auto;padding:12px}
 
-  /* top back arrow */
-  .topbar{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:10px;
-  }
-  .back{
-    width:36px;height:36px;border-radius:50%;
-    display:grid;place-items:center;background:transparent;
-    font-size:20px;color:#111827;
-  }
+  .topbar{display:flex;align-items:center;margin-bottom:10px}
+  .back{font-size:22px;padding:6px 10px}
 
-  /* header area */
-  .header{
-    display:flex;
-    gap:16px;
-    align-items:center;
-    padding:10px 6px;
-  }
+  .header{display:flex;gap:16px;align-items:center}
   .icon{
-    width:78px;height:78px;border-radius:14px;
-    background:linear-gradient(180deg,#5b5fe6,#2f2cff);
+    width:78px;height:78px;border-radius:18px;
+    background:#2f2cff;
     display:flex;align-items:center;justify-content:center;
-    box-shadow:0 6px 18px rgba(11,59,130,0.08);
-    flex-shrink:0;
-    overflow:hidden;
   }
-  .icon img{width:62%;height:auto;mix-blend-mode:screen;opacity:0.95}
-  .meta{
-    flex:1;
-  }
-  .meta h1{
-    font-size:20px;margin-bottom:2px;font-weight:700;
-  }
-  .meta p{font-size:13px;color:var(--muted);margin-bottom:8px}
-  .meta .meta-row{
-    display:flex;align-items:center;gap:14px;color:var(--muted);font-size:13px;
+  .icon img{width:60%}
+
+  h1{font-size:22px;font-weight:700}
+  .sub{font-size:13px;color:var(--muted);margin-top:2px}
+
+  .meta-row{
+    display:flex;gap:14px;margin-top:8px;font-size:13px;color:var(--muted)
   }
 
-  /* install button row */
-  .install-row{
-    display:flex;
-    justify-content:center;
-    margin:12px 6px;
-  }
-  .install{
-    background:var(--primary);
-    color:#fff;
-    padding:12px 58px;
-    border-radius:30px;
-    font-weight:600;
-    font-size:16px;
-    border:0;
-    box-shadow:0 6px 18px rgba(11,59,130,0.18);
+  .install-row{margin:18px 0;text-align:center}
+  #installBtn{
+    background:var(--primary);color:#fff;border:0;
+    padding:12px 70px;border-radius:30px;font-size:17px;
   }
 
-  /* screenshots */
-  .screens{
-    display:flex;
-    gap:12px;
-    padding:16px 6px;
-    overflow:hidden;
+  /* Téléchargement */
+  #progressBox{
+    display:none;margin-top:10px;text-align:center;
   }
+  #progressBarContainer{
+    width:90%;height:10px;background:#ddd;border-radius:10px;
+    margin:10px auto;
+  }
+  #progressBar{
+    height:100%;width:0%;background:var(--primary);border-radius:10px;
+  }
+
+  /* Screenshots */
+  .screens{margin-top:15px;display:flex;gap:10px}
   .ss{
-    min-width:110px;
-    max-width:110px;
-    height:190px;
-    border-radius:14px;
-    background:#fff;
-    box-shadow:0 6px 18px rgba(2,6,23,0.06);
-    display:flex;align-items:center;justify-content:center;
-    overflow:hidden;
+    width:120px;height:200px;border-radius:14px;
+    background:#fff;overflow:hidden;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
   }
   .ss img{width:100%;height:100%;object-fit:cover}
 
-  /* about */
-  .about{
-    margin:16px 6px;
-    background:var(--card-bg);
-    padding:14px;
-    border-radius:12px;
-    box-shadow:0 2px 10px rgba(2,6,23,0.02);
-  }
-  .about h2{font-size:16px;margin-bottom:8px}
-  .about p{color:var(--muted);font-size:14px}
+  .about{background:#fff;margin-top:18px;padding:16px;border-radius:14px}
+  .about h2{font-size:17px;margin-bottom:8px}
+  .about p{color:var(--muted);line-height:1.4;font-size:14px;margin-bottom:10px}
 
-  /* tags */
-  .tags{
-    display:flex;
-    gap:10px;
-    margin-top:12px;
-    flex-wrap:wrap;
-  }
   .tag{
-    border:1px solid var(--pill-border);
-    padding:8px 12px;border-radius:999px;
-    font-size:13px;background:transparent;color:#111827;
-  }
-
-  /* bottom nav mock */
-  .bottom-nav{
-    position:fixed;left:0;right:0;bottom:0;
-    background:#fff;border-top:1px solid #eaeaea;
-    display:flex;justify-content:space-around;align-items:center;
-    padding:10px 6px;max-width:420px;margin:0 auto;
-    box-shadow:0 -6px 18px rgba(2,6,23,0.03);
-  }
-  .nav-item{display:flex;flex-direction:column;align-items:center;font-size:12px;color:var(--muted)}
-  .nav-item .icon{width:36px;height:36px;background:transparent;border-radius:8px}
-
-  /* responsive small tweaks */
-  @media (max-width:420px){
-    .app{padding-bottom:76px}
-    .ss{min-width:90px; height:150px}
+    display:inline-block;border:1px solid #e0e0e0;
+    padding:8px 14px;border-radius:30px;font-size:13px;margin:6px 6px 0 0;
   }
 </style>
 </head>
 <body>
-  <div class="app" role="main">
-    <div class="topbar">
-      <div class="back" aria-hidden="true">←</div>
-    </div>
 
-    <div class="header">
-      <div class="icon" aria-hidden="true">
-        <!-- Remplacez src par votre icône -->
-        <img src="icon.png" alt="Logo Real Madrid" />
-      </div>
-      <div class="meta">
-        <h1>Real Madrid</h1>
-        <p><strong style="color:#0b3b82">Real Madrid C.F.</strong> <span style="display:inline-block;margin-left:8px;color:var(--muted)">Contient des annonces</span></p>
-        <div class="meta-row">
-          <div style="display:flex;align-items:center;gap:6px">
-            <strong style="color:#0b3b82">4,7</strong>
-            <span style="font-size:12px;color:var(--muted)">★</span>
-            <span style="font-size:12px;color:var(--muted)">178 k avis</span>
-          </div>
-          <div style="font-size:12px;color:var(--muted)">53 Mo</div>
-          <div style="font-size:12px;color:var(--muted)">3 ans et plus</div>
-        </div>
-      </div>
-    </div>
+<div class="app">
 
-    <div class="install-row">
-      <button class="install">Installer</button>
-    </div>
-
-    <div class="screens" aria-hidden="false">
-      <div class="ss"><img src="screenshot1.png" alt="capture 1"></div>
-      <div class="ss"><img src="screenshot2.png" alt="capture 2"></div>
-      <div class="ss"><img src="screenshot3.png" alt="capture 3"></div>
-      <div class="ss"><img src="screenshot4.png" alt="capture 4"></div>
-    </div>
-
-    <div class="about">
-      <h2>À propos de l'appli</h2>
-      <p>Soutenez votre club depuis l’application du Real Madrid et accédez à son contenu</p>
-
-      <div class="tags" style="margin-top:12px">
-        <div class="tag">Sports</div>
-        <div class="tag">Actualités et magazines</div>
-        <div class="tag">Actualités sportives</div>
-      </div>
-    </div>
-
+  <div class="topbar">
+    <div class="back">←</div>
   </div>
 
-  <nav class="bottom-nav" aria-label="Navigation">
-    <div class="nav-item">
-      <div class="icon">🎮</div>
-      <div>Jeux</div>
+  <div class="header">
+    <div class="icon">
+      <img src="icon.png" alt="">
     </div>
-    <div class="nav-item">
-      <div class="icon">▦</div>
-      <div>Applis</div>
+    <div>
+      <h1>Real Madrid</h1>
+      <div class="sub">Real Madrid C.F. — Contient des annonces</div>
+      <div class="meta-row">
+        <span><b>4,7 ★</b></span>
+        <span>178 k avis</span>
+        <span>53 Mo</span>
+        <span>3+</span>
+      </div>
     </div>
-    <div class="nav-item">
-      <div style="width:44px;height:44px;border-radius:999px;background:var(--primary);display:grid;place-items:center;color:#fff;font-weight:700">🔍</div>
-      <div style="color:var(--primary)">Rechercher</div>
-    </div>
-  </nav>
+  </div>
 
-  <!-- NOTE: Remplacez icon.png et screenshot*.png par vos vraies images. -->
+  <div class="install-row">
+    <button id="installBtn">Installer</button>
+
+    <div id="progressBox">
+      <p id="statusText">Téléchargement…</p>
+      <div id="progressBarContainer">
+        <div id="progressBar"></div>
+      </div>
+      <p id="percent">0%</p>
+    </div>
+  </div>
+
+  <div class="screens">
+    <div class="ss"><img src="cap1.png" alt=""></div>
+    <div class="ss"><img src="cap2.png" alt=""></div>
+    <div class="ss"><img src="cap3.png" alt=""></div>
+  </div>
+
+  <div class="about">
+    <h2>À propos de l'application</h2>
+
+    <p>
+      Plongez au cœur de l’univers du <b>Real Madrid</b>, le club le plus titré de l’histoire du football.  
+      Suivez l’actualité en temps réel, découvrez les coulisses du vestiaire, vivez chaque match comme si
+      vous étiez au Santiago Bernabéu et profitez d’un accès exclusif aux vidéos, interviews et statistiques
+      officielles du club.  
+    </p>
+
+    <p>
+      Rejoignez les millions de supporters à travers le monde et vibrez au rythme des Merengues.  
+      Votre passion. Votre club. Votre application officielle.
+    </p>
+
+    <div class="tag">Sports</div>
+    <div class="tag">Actualités</div>
+    <div class="tag">Football</div>
+  </div>
+
+</div>
+
+<!-- SCRIPT TÉLÉCHARGEMENT COMME PLAY STORE -->
+<script>
+  const btn = document.getElementById("installBtn");
+  const box = document.getElementById("progressBox");
+  const bar = document.getElementById("progressBar");
+  const percent = document.getElementById("percent");
+  const status = document.getElementById("statusText");
+
+  btn.addEventListener("click", function(){
+    btn.style.display = "none";
+    box.style.display = "block";
+
+    let p = 0;
+    let interval = setInterval(() => {
+      p += Math.random() * 7; 
+      if(p >= 100){
+        p = 100;
+        clearInterval(interval);
+        status.innerText = "Téléchargement terminé";
+        // Télécharger ton fichier APK
+        const link = document.createElement("a");
+        link.href = "monapp.apk"; // <-- METS TON FICHIER APK ICI
+        link.download = "monapp.apk";
+        link.click();
+        setTimeout(()=>{
+          status.innerText = "Installation…";
+        },1000);
+      }
+      bar.style.width = p + "%";
+      percent.innerText = Math.floor(p) + "%";
+    }, 300);
+  });
+</script>
+
 </body>
 </html>

@@ -1,295 +1,220 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>FC LÉGENDE — Téléchargement</title>
-  <meta name="description" content="Soutenez FC LÉGENDE — actualités, matches en direct, vidéos et plus. Téléchargez l'application." />
-  <style>
-    :root{
-      --bg:#f5f7fb;
-      --card:#fff;
-      --accent:#083b72; /* bleu foncé bouton */
-      --muted:#6b7280;
-      --radius:14px;
-      --gap:16px;
-      font-family: Inter, system-ui, Arial, sans-serif;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:#111827;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding:22px;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Real Madrid - Mock Play Store</title>
+<style>
+  :root{
+    --bg:#ffffff;
+    --page-bg:#f6f7fb;
+    --primary:#0b3b82; /* bleu profond bouton */
+    --muted:#6b7280; /* gris texte */
+    --card-bg:#ffffff;
+    --accent:#2b6cb0;
+    --pill-border:#e6e7ee;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    background:var(--page-bg);
+    color:#0f1724;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.2;
+  }
 
-    .app-card{
-      max-width:920px;
-      margin:0 auto;
-      background:var(--card);
-      border-radius:20px;
-      box-shadow:0 6px 20px rgba(11,35,68,0.08);
-      overflow:hidden;
-      padding:22px;
-    }
-    .top{
-      display:flex;
-      gap:16px;
-      align-items:center;
-    }
-    .icon{
-      width:84px;height:84px;border-radius:18px;background:#eef3ff;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:28px;
-      flex:0 0 84px;
-    }
-    .meta{
-      flex:1;
-    }
-    .meta h1{margin:0;font-size:20px}
-    .meta .dev{color:var(--muted);font-size:13px;margin-top:4px}
-    .meta .rating{margin-top:8px;color:#0b5; font-weight:600} /* replace color if wanted */
+  /* container */
+  .app{
+    max-width:420px;
+    margin:18px auto;
+    background:transparent;
+    padding:12px;
+  }
 
-    .install-row{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-top:14px;
-    }
-    .install-btn{
-      background:var(--accent);
-      color:#fff;
-      border:none;
-      padding:12px 22px;
-      border-radius:999px;
-      font-weight:600;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-    }
-    .small-info{color:var(--muted);font-size:13px}
+  /* top back arrow */
+  .topbar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:10px;
+  }
+  .back{
+    width:36px;height:36px;border-radius:50%;
+    display:grid;place-items:center;background:transparent;
+    font-size:20px;color:#111827;
+  }
 
-    /* screenshots */
-    .screens{
-      margin-top:20px;
-      display:flex;
-      gap:12px;
-      overflow:hidden;
-      align-items:center;
-    }
-    .screenshot{
-      min-width:170px;
-      height:320px;
-      border-radius:12px;
-      background:linear-gradient(180deg,#ffffff,#f1f5ff);
-      box-shadow:0 6px 20px rgba(12,30,60,0.08);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--muted);
-      font-size:14px;
-      position:relative;
-    }
-    .screenshot img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+  /* header area */
+  .header{
+    display:flex;
+    gap:16px;
+    align-items:center;
+    padding:10px 6px;
+  }
+  .icon{
+    width:78px;height:78px;border-radius:14px;
+    background:linear-gradient(180deg,#5b5fe6,#2f2cff);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 18px rgba(11,59,130,0.08);
+    flex-shrink:0;
+    overflow:hidden;
+  }
+  .icon img{width:62%;height:auto;mix-blend-mode:screen;opacity:0.95}
+  .meta{
+    flex:1;
+  }
+  .meta h1{
+    font-size:20px;margin-bottom:2px;font-weight:700;
+  }
+  .meta p{font-size:13px;color:var(--muted);margin-bottom:8px}
+  .meta .meta-row{
+    display:flex;align-items:center;gap:14px;color:var(--muted);font-size:13px;
+  }
 
-    /* layout */
-    .cols{
-      display:grid;
-      grid-template-columns:1fr 360px;
-      gap:18px;
-      margin-top:18px;
-    }
-    .left{padding-right:6px}
-    .right{padding-left:6px}
+  /* install button row */
+  .install-row{
+    display:flex;
+    justify-content:center;
+    margin:12px 6px;
+  }
+  .install{
+    background:var(--primary);
+    color:#fff;
+    padding:12px 58px;
+    border-radius:30px;
+    font-weight:600;
+    font-size:16px;
+    border:0;
+    box-shadow:0 6px 18px rgba(11,59,130,0.18);
+  }
 
-    .card{
-      background:var(--card);
-      border-radius:12px;
-      padding:14px;
-      box-shadow:0 6px 20px rgba(11,35,68,0.04);
-      margin-bottom:12px;
-    }
-    h2{font-size:16px;margin:0 0 8px 0}
-    p{color:var(--muted);line-height:1.45}
+  /* screenshots */
+  .screens{
+    display:flex;
+    gap:12px;
+    padding:16px 6px;
+    overflow:hidden;
+  }
+  .ss{
+    min-width:110px;
+    max-width:110px;
+    height:190px;
+    border-radius:14px;
+    background:#fff;
+    box-shadow:0 6px 18px rgba(2,6,23,0.06);
+    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
+  }
+  .ss img{width:100%;height:100%;object-fit:cover}
 
-    /* data security box */
-    .security-list{display:flex;flex-direction:column;gap:12px}
-    .sec-item{display:flex;gap:12px;align-items:flex-start}
-    .sec-icon{width:36px;height:36px;border-radius:8px;background:#eef2ff;display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700}
+  /* about */
+  .about{
+    margin:16px 6px;
+    background:var(--card-bg);
+    padding:14px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(2,6,23,0.02);
+  }
+  .about h2{font-size:16px;margin-bottom:8px}
+  .about p{color:var(--muted);font-size:14px}
 
-    .details{margin-top:10px;color:var(--muted);font-size:13px}
-    .linkish{color:var(--accent);text-decoration:underline;cursor:pointer}
+  /* tags */
+  .tags{
+    display:flex;
+    gap:10px;
+    margin-top:12px;
+    flex-wrap:wrap;
+  }
+  .tag{
+    border:1px solid var(--pill-border);
+    padding:8px 12px;border-radius:999px;
+    font-size:13px;background:transparent;color:#111827;
+  }
 
-    /* responsive */
-    @media (max-width:880px){
-      .cols{grid-template-columns:1fr; }
-      .screens{overflow:auto;padding-bottom:6px}
-      .screenshot{min-width:260px;height:480px}
-      .right{order:2}
-    }
-  </style>
+  /* bottom nav mock */
+  .bottom-nav{
+    position:fixed;left:0;right:0;bottom:0;
+    background:#fff;border-top:1px solid #eaeaea;
+    display:flex;justify-content:space-around;align-items:center;
+    padding:10px 6px;max-width:420px;margin:0 auto;
+    box-shadow:0 -6px 18px rgba(2,6,23,0.03);
+  }
+  .nav-item{display:flex;flex-direction:column;align-items:center;font-size:12px;color:var(--muted)}
+  .nav-item .icon{width:36px;height:36px;background:transparent;border-radius:8px}
+
+  /* responsive small tweaks */
+  @media (max-width:420px){
+    .app{padding-bottom:76px}
+    .ss{min-width:90px; height:150px}
+  }
+</style>
 </head>
 <body>
+  <div class="app" role="main">
+    <div class="topbar">
+      <div class="back" aria-hidden="true">←</div>
+    </div>
 
-  <main class="app-card" role="main" aria-labelledby="app-title">
-
-    <div class="top">
-      <div class="icon" aria-hidden="true">FL</div>
+    <div class="header">
+      <div class="icon" aria-hidden="true">
+        <!-- Remplacez src par votre icône -->
+        <img src="icon.png" alt="Logo Real Madrid" />
+      </div>
       <div class="meta">
-        <h1 id="app-title">FC LÉGENDE</h1>
-        <div class="dev">FC LÉGENDE — Contient des annonces</div>
-        <div style="display:flex;gap:10px;margin-top:8px;align-items:center">
-          <div class="small-info">⭐ 4,8 · 12 k avis</div>
-          <div class="small-info">· 54 Mo</div>
-          <div class="small-info">· 3+</div>
-        </div>
-
-        <div class="install-row">
-          <!-- Remplace href par ton vrai lien (Play Store / APK / page) -->
-          <a class="install-btn" href="#" onclick="event.preventDefault(); alert('Remplace ce lien par l\'URL de téléchargement de ton application');" aria-label="Installer FC LÉGENDE">
-            Installer
-          </a>
-          <div class="small-info">Téléchargements estimés · 10k+</div>
+        <h1>Real Madrid</h1>
+        <p><strong style="color:#0b3b82">Real Madrid C.F.</strong> <span style="display:inline-block;margin-left:8px;color:var(--muted)">Contient des annonces</span></p>
+        <div class="meta-row">
+          <div style="display:flex;align-items:center;gap:6px">
+            <strong style="color:#0b3b82">4,7</strong>
+            <span style="font-size:12px;color:var(--muted)">★</span>
+            <span style="font-size:12px;color:var(--muted)">178 k avis</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted)">53 Mo</div>
+          <div style="font-size:12px;color:var(--muted)">3 ans et plus</div>
         </div>
       </div>
     </div>
 
-    <!-- screenshots -->
-    <section aria-label="Captures d'écran de l'application" class="screens" id="screenshot-strip">
-      <!-- Remplace les src par tes images/screenshots -->
-      <div class="screenshot">
-        <img src="https://via.placeholder.com/360x640?text=Capture+1" alt="Capture d'écran - page d'accueil de FC LÉGENDE">
-      </div>
-      <div class="screenshot">
-        <img src="https://via.placeholder.com/360x640?text=Capture+2" alt="Capture d'écran - Live match">
-      </div>
-      <div class="screenshot">
-        <img src="https://via.placeholder.com/360x640?text=Capture+3" alt="Capture d'écran - Actualités du club">
-      </div>
-      <div class="screenshot">
-        <img src="https://via.placeholder.com/360x640?text=Capture+4" alt="Capture d'écran - Vidéos et articles">
-      </div>
-    </section>
-
-    <div class="cols" role="region" aria-label="Informations sur l'application">
-      <div class="left">
-        <div class="card">
-          <h2>À propos de l'appli</h2>
-          <p>
-            Soutenez votre club depuis l'application FC LÉGENDE : suivez les matchs en direct, regardez des résumés et vidéos exclusives, lisez les dernières actualités et recevez des notifications en temps réel.
-          </p>
-          <ul style="margin-top:10px;color:var(--muted);line-height:1.6">
-            <li>Matchs en direct & commentaires</li>
-            <li>Vidéos et résumés</li>
-            <li>Notifications personnalisées</li>
-            <li>Section historique & galerie</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h2>Captures d'écran</h2>
-          <p class="details">Faites glisser pour voir plus. Pour remplacer, modifiez les balises &lt;img&gt; dans la section "screens".</p>
-        </div>
-
-        <div class="card" id="permissions-card">
-          <h2>Permissions (exemples)</h2>
-          <p class="details">Cette application peut demander l'accès à certaines fonctionnalités selon les options que vous utilisez :</p>
-          <ul style="color:var(--muted);line-height:1.6">
-            <li>Position (pour le contenu localisé)</li>
-            <li>Stockage (pour télécharger et lire des vidéos)</li>
-            <li>Notifications (pour alertes de match)</li>
-          </ul>
-        </div>
-      </div>
-
-      <aside class="right" aria-label="Sécurité des données">
-        <div class="card">
-          <h2>Sécurité des données</h2>
-          <p class="details">La sécurité, c'est d'abord comprendre comment FC LÉGENDE collecte et partage vos données. Les pratiques peuvent varier selon l'utilisation et la région.</p>
-
-          <div class="security-list" style="margin-top:8px">
-            <div class="sec-item">
-              <div class="sec-icon">⇄</div>
-              <div>
-                <strong>Partage avec des tiers</strong>
-                <div class="details">Position, Activité dans l'application et autres</div>
-              </div>
-            </div>
-
-            <div class="sec-item">
-              <div class="sec-icon">☁</div>
-              <div>
-                <strong>Collecte de données</strong>
-                <div class="details">Position, Informations personnelles, Activité dans l'application</div>
-              </div>
-            </div>
-
-            <div class="sec-item">
-              <div class="sec-icon">🔒</div>
-              <div>
-                <strong>Données chiffrées en transit</strong>
-                <div class="details">Les données sensibles sont transmises via des connexions sécurisées.</div>
-              </div>
-            </div>
-
-            <div class="sec-item">
-              <div class="sec-icon">🗑</div>
-              <div>
-                <strong>Suppression de compte disponible</strong>
-                <div class="details">Vous pouvez demander la suppression des données collectées.</div>
-              </div>
-            </div>
-          </div>
-
-          <p class="details" style="margin-top:12px">
-            <span class="linkish" id="voir-details">Voir les détails</span>
-          </p>
-
-          <div id="details-panel" style="display:none;margin-top:10px;color:var(--muted);font-size:14px;">
-            <strong>Détails supplémentaires :</strong>
-            <ul style="margin-top:8px;line-height:1.6">
-              <li>Les informations personnelles sont utilisées pour améliorer votre expérience (profil, préférences).</li>
-              <li>Vous pouvez contacter privacy@fclégende.example pour toute demande liée aux données.</li>
-              <li>Politique de confidentialité complète disponible sur la page officielle.</li>
-            </ul>
-          </div>
-
-        </div>
-
-        <div class="card">
-          <h2>Informations complémentaires</h2>
-          <p class="details">Version : 1.0.2 · Mis à jour : Nov 2025 · Taille : 54 Mo</p>
-          <p class="details">Langues : Français, Anglais, Arabe</p>
-        </div>
-
-      </aside>
+    <div class="install-row">
+      <button class="install">Installer</button>
     </div>
 
-    <footer style="margin-top:14px;color:var(--muted);font-size:13px;text-align:center">
-      <div>© FC LÉGENDE</div>
-      <div style="margin-top:6px">Remplacez les images et liens par vos contenus réels avant publication.</div>
-    </footer>
+    <div class="screens" aria-hidden="false">
+      <div class="ss"><img src="screenshot1.png" alt="capture 1"></div>
+      <div class="ss"><img src="screenshot2.png" alt="capture 2"></div>
+      <div class="ss"><img src="screenshot3.png" alt="capture 3"></div>
+      <div class="ss"><img src="screenshot4.png" alt="capture 4"></div>
+    </div>
 
-  </main>
+    <div class="about">
+      <h2>À propos de l'appli</h2>
+      <p>Soutenez votre club depuis l’application du Real Madrid et accédez à son contenu</p>
 
-  <script>
-    // Toggle "Voir les détails"
-    document.getElementById('voir-details').addEventListener('click', function(){
-      const panel = document.getElementById('details-panel');
-      const vis = panel.style.display === 'block';
-      panel.style.display = vis ? 'none' : 'block';
-      this.textContent = vis ? 'Voir les détails' : 'Masquer les détails';
-    });
+      <div class="tags" style="margin-top:12px">
+        <div class="tag">Sports</div>
+        <div class="tag">Actualités et magazines</div>
+        <div class="tag">Actualités sportives</div>
+      </div>
+    </div>
 
-    // Simple keyboard accessible scrolling for screenshots: left/right with arrow keys when strip focused
-    const strip = document.getElementById('screenshot-strip');
-    strip.tabIndex = 0;
-    strip.addEventListener('keydown', (e) => {
-      if(e.key === 'ArrowRight') strip.scrollBy({left:260, behavior:'smooth'});
-      if(e.key === 'ArrowLeft') strip.scrollBy({left:-260, behavior:'smooth'});
-    });
-  </script>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Navigation">
+    <div class="nav-item">
+      <div class="icon">🎮</div>
+      <div>Jeux</div>
+    </div>
+    <div class="nav-item">
+      <div class="icon">▦</div>
+      <div>Applis</div>
+    </div>
+    <div class="nav-item">
+      <div style="width:44px;height:44px;border-radius:999px;background:var(--primary);display:grid;place-items:center;color:#fff;font-weight:700">🔍</div>
+      <div style="color:var(--primary)">Rechercher</div>
+    </div>
+  </nav>
+
+  <!-- NOTE: Remplacez icon.png et screenshot*.png par vos vraies images. -->
 </body>
 </html>

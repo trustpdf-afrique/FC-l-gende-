@@ -1,161 +1,289 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FC LÉGENDE</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>FC Légende — Télécharger</title>
+<link rel="icon" href="logo.png" />
+<style>
+  :root{
+    --primary:#1e8b3a;   /* vert/brésil */
+    --accent:#f7d117;    /* jaune/brésil */
+    --dark:#0b3b5a;
+    --muted:#6b6b6b;
+    --card:#ffffff;
+    --radius:14px;
+    --maxw:980px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,#f3f7f2 0%, #eef6ff 100%);
+    color:#111;
+    display:flex;
+    justify-content:center;
+    padding:28px 16px;
+  }
+  .wrap{
+    width:100%;
+    max-width:var(--maxw);
+  }
 
-    <!-- Font Awesome pour icônes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  /* Header card */
+  .hero{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    background:var(--card);
+    padding:20px;
+    border-radius:var(--radius);
+    box-shadow:0 10px 30px rgba(20,40,60,0.08);
+  }
+  .logo{
+    width:112px;
+    height:112px;
+    flex:0 0 112px;
+    border-radius:20px;
+    overflow:hidden;
+    background:linear-gradient(180deg,#fff,#f5f5f5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .logo img{width:100%;height:100%;object-fit:contain}
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-        }
+  .meta{
+    flex:1;
+  }
+  .app-title{
+    font-size:22px;
+    margin:0 0 6px 0;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+  }
+  .subtitle{color:var(--muted); font-size:13px; margin:0 0 14px 0}
 
-        /* EN-TÊTE */
-        .header {
-            background: #0057b7;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-        }
+  .install-row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .install-btn{
+    background:linear-gradient(180deg,var(--primary), #0f6f2d);
+    color:#fff;
+    padding:12px 20px;
+    border-radius:12px;
+    text-decoration:none;
+    font-weight:700;
+    box-shadow:0 8px 20px rgba(30,139,58,0.25);
+    transition:transform .15s ease, box-shadow .15s;
+  }
+  .install-btn:active{ transform:translateY(2px) }
+  .small-meta{ font-size:13px; color:var(--muted) }
 
-        /* CONTENU DES PAGES */
-        .page {
-            display: none;
-            padding: 20px;
-        }
-        .active {
-            display: block;
-        }
+  /* Content layout */
+  .content{ display:grid; grid-template-columns: 1fr 360px; gap:18px; margin-top:18px; }
 
-        /* ONGLET BAS */
-        .tabs {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: transparent;
-            display: flex;
-            justify-content: space-around;
-            padding: 10px;
-        }
+  /* Left column */
+  .card{ background:var(--card); border-radius:12px; padding:16px; box-shadow:0 8px 24px rgba(20,40,60,0.06); }
+  .screenshots{ display:flex; gap:10px; overflow-x:auto; padding-bottom:6px; }
+  .screenshots img{ width:180px; height:360px; object-fit:cover; border-radius:10px; flex:0 0 180px; box-shadow:0 8px 18px rgba(10,20,30,0.08); background:#eee }
 
-        .tab {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 22px;
-            margin: 0 8px;
-            color: white;
-            transition: transform 0.2s;
-            padding: 5px;
-        }
+  h2{ margin:8px 0 12px 0; font-size:18px }
+  p.lead{ color:#222; line-height:1.55; margin:0 0 12px 0 }
+  .features{ display:flex; gap:10px; flex-wrap:wrap }
+  .feature{ background:#f6fbf7; color:var(--primary); padding:8px 10px; border-radius:10px; font-weight:600; font-size:13px }
 
-        .tab:hover {
-            transform: scale(1.2);
-        }
+  /* Right column */
+  .info-box{ padding:16px; border-radius:12px; text-align:left; }
+  .info-row{ display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px dashed rgba(0,0,0,0.06) }
+  .info-row:last-child{ border-bottom:0 }
+  .label{ color:var(--muted); font-size:13px }
+  .value{ font-weight:700 }
 
-        .selected {
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
-        }
+  .share{ margin-top:12px; display:flex; gap:8px; }
+  .share button{ flex:1; padding:10px; border-radius:10px; border:0; cursor:pointer; font-weight:700 }
+  .share .copy{ background:#eef2ff; color:var(--dark) }
+  .share .native{ background:linear-gradient(90deg,var(--accent),#ffd34d); color: #063347 }
 
-        /* COULEURS DES ONGLES */
-        .tab-actus { background: #ff6666; }
-        .tab-profil { background: #3399ff; }
-        .tab-match { background: #33cc66; }
-        .tab-buteurs { background: #ffcc33; color: black; }
-        .tab-accueil { background: #9966ff; }
+  /* Footer */
+  .changelog{ margin-top:12px; font-size:14px; color:var(--muted) }
+  footer{ text-align:center; color:var(--muted); font-size:13px; margin-top:18px }
 
-        /* Labels sous icônes */
-        .tab .label {
-            font-size: 10px;
-            font-weight: bold;
-            margin-top: 4px;
-            text-transform: uppercase;
-        }
-    </style>
+  @media (max-width:900px){
+    .content{ grid-template-columns: 1fr; }
+    .logo{ width:96px; height:96px; flex:0 0 96px }
+    .screenshots img{ width:140px; height:300px; flex:0 0 140px }
+  }
+</style>
 </head>
-
 <body>
+  <div class="wrap">
 
-    <!-- EN-TÊTE -->
-    <div class="header">FC LÉGENDE</div>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="logo">
+        <!-- Remplacez "logo.png" par l'URL de votre logo (format PNG transparent de préférence) -->
+        <img src="logo.png" alt="FC Légende Logo" />
+      </div>
 
-    <!-- PAGES -->
-    <div id="accueil" class="page">
-        <h2>ACCUEIL</h2>
-        <p>Ici nous allons mettre la description de l'application et la photo du Président.</p>
-    </div>
+      <div class="meta">
+        <div class="app-title">FC Légende <span style="font-size:12px;color:var(--muted);font-weight:600">• Club officiel</span></div>
+        <div class="subtitle">Contient des publicités • Sport • Version 1.0</div>
 
-    <div id="actus" class="page active">
-        <h2>ACTUALITÉS</h2>
-        <p>Ici nous allons mettre les actualités du club.</p>
-    </div>
+        <div class="install-row">
+          <!-- Lien de téléchargement (remplace par ton lien AppsGeyser) -->
+          <a class="install-btn" id="installBtn" href="https://appsgeyser.io/19288" target="_blank" rel="noopener">Installer</a>
 
-    <div id="profil" class="page">
-        <h2>Profil des joueurs</h2>
-        <p>Ici nous allons afficher la liste des joueurs.</p>
-    </div>
+          <div class="small-meta">
+            <div style="font-weight:700">1+</div>
+            <div style="font-size:12px;color:var(--muted)">Téléchargements</div>
+          </div>
 
-    <div id="match" class="page">
-        <h2>MATCHS</h2>
-        <p>Ici nous allons mettre les matchs récents et à venir.</p>
-    </div>
-
-    <div id="buteurs" class="page">
-        <h2>BUTEURS</h2>
-        <p>Ici nous allons mettre la liste des meilleurs buteurs.</p>
-    </div>
-
-    <!-- ONGLET BAS -->
-    <div class="tabs">
-
-        <div class="tab tab-actus selected" onclick="showPage('actus', this)">
-            <i class="fas fa-newspaper"></i>
-            <span class="label">Actus</span>
+          <div class="small-meta" style="margin-left:6px">
+            <div style="font-weight:700">1+</div>
+            <div style="font-size:12px;color:var(--muted)">Utilisateurs</div>
+          </div>
         </div>
-
-        <div class="tab tab-profil" onclick="showPage('profil', this)">
-            <i class="fas fa-user"></i>
-            <span class="label">Profil</span>
-        </div>
-
-        <div class="tab tab-match" onclick="showPage('match', this)">
-            <i class="fas fa-futbol"></i>
-            <span class="label">Match</span>
-        </div>
-
-        <div class="tab tab-buteurs" onclick="showPage('buteurs', this)">
-            <i class="fas fa-bullseye"></i>
-            <span class="label">Buteurs</span>
-        </div>
-
-        <div class="tab tab-accueil" onclick="showPage('accueil', this)">
-            <i class="fas fa-home"></i>
-            <span class="label">Accueil</span>
-        </div>
+      </div>
     </div>
 
-    <script>
-        function showPage(pageId, element) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+    <!-- MAIN CONTENT -->
+    <div class="content">
 
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('selected'));
-            element.classList.add('selected');
-        }
-    </script>
+      <!-- LEFT -->
+      <div>
+        <div class="card">
+          <h2>Aperçu</h2>
+          <p class="lead">
+            FC Légende — le club, l’histoire, la passion. Suivez les résultats, les prochains matchs, les actualités du
+            club, les profils des joueurs, et recevez des notifications. Téléchargez l’application officielle du club.
+          </p>
 
+          <div class="features" aria-hidden>
+            <div class="feature">Actualités</div>
+            <div class="feature">Matchs & Résultats</div>
+            <div class="feature">Photos & Vidéos</div>
+            <div class="feature">Contact direct</div>
+          </div>
+
+          <h2>Captures d'écran</h2>
+          <div class="screenshots" id="screenshots">
+            <!-- Remplacez par vos images / captures d'écran -->
+            <img src="screenshot1.jpg" alt="Capture 1" />
+            <img src="screenshot2.jpg" alt="Capture 2" />
+            <img src="screenshot3.jpg" alt="Capture 3" />
+          </div>
+
+          <h2>Description complète</h2>
+          <p>
+            FC Légende est un club passionné dédié à la formation des jeunes talents et à la promotion de l’esprit sportif.
+            Restez informé(e) des calendriers, des compositions d'équipe, et vivez la légende avec nous.
+          </p>
+
+          <div class="changelog">
+            <strong>Nouveautés (v1.0)</strong>
+            <ul>
+              <li>Page d'accueil du club</li>
+              <li>Profil du Président et joueurs</li>
+              <li>Notifications et section Actualités</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <aside>
+        <div class="card info-box">
+          <div class="info-row">
+            <div class="label">Nom</div>
+            <div class="value">FC Légende</div>
+          </div>
+
+          <div class="info-row">
+            <div class="label">Version</div>
+            <div class="value">1.0</div>
+          </div>
+
+          <div class="info-row">
+            <div class="label">Taille</div>
+            <div class="value">4.8 MB</div>
+          </div>
+
+          <div class="info-row">
+            <div class="label">Catégorie</div>
+            <div class="value">Sport</div>
+          </div>
+
+          <div class="info-row">
+            <div class="label">Langues</div>
+            <div class="value">Français</div>
+          </div>
+
+          <div style="margin-top:12px">
+            <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Partager</div>
+            <div class="share">
+              <button class="copy" id="copyLink">Copier le lien</button>
+              <button class="native" id="shareBtn">Partager</button>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; font-size:13px; color:var(--muted)">
+            <div style="margin-bottom:8px"><strong>Contact</strong></div>
+            <div>fclegende@example.com</div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+    <footer>
+      © FC Légende — Tous droits réservés
+    </footer>
+  </div>
+
+<script>
+  // Remplace ce lien par ton lien AppsGeyser final si différent
+  const appLink = 'https://appsgeyser.io/19288';
+
+  document.getElementById('copyLink').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(appLink);
+      alert('Lien copié : ' + appLink);
+    } catch (e) {
+      prompt('Copiez ce lien', appLink);
+    }
+  });
+
+  document.getElementById('shareBtn').addEventListener('click', async () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'FC Légende — Télécharger',
+        text: 'Télécharge l’application officielle FC Légende !',
+        url: appLink
+      }).catch(()=>{});
+    } else {
+      alert('Le partage n’est pas supporté sur ce navigateur. Vous pouvez copier le lien.');
+    }
+  });
+
+  // amélioration : si image absent, mettre un placeholder
+  document.querySelectorAll('.screenshots img, .logo img').forEach(img=>{
+    img.onerror = ()=> { img.src = 'placeholder.png'; img.style.objectFit='contain' }
+  });
+
+  // Mobile: bouton installer visible en bas si besoin
+  (function stickyInstall(){
+    if (window.innerWidth < 480){
+      const mobileBar = document.createElement('div');
+      mobileBar.style.position='fixed';
+      mobileBar.style.left='12px';
+      mobileBar.style.right='12px';
+      mobileBar.style.bottom='12px';
+      mobileBar.style.zIndex='9999';
+      mobileBar.innerHTML = `<a href="${appLink}" target="_blank" rel="noopener" style="display:block;text-align:center;padding:12px 16px;border-radius:12px;background:linear-gradient(90deg,var(--accent),#ffd34d);font-weight:800;color:#063347;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,0.12)">Installer FC Légende</a>`;
+      document.body.appendChild(mobileBar);
+    }
+  })();
+</script>
 </body>
 </html>

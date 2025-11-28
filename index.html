@@ -1,176 +1,242 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Real Madrid - App</title>
-<style>
-  :root{
-    --primary:#0b3b82;
-    --muted:#6b7280;
-    --bg:#f6f7fb;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{
-    font-family: Inter, Arial, sans-serif;
-    background:var(--bg);
-    color:#0f1724;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connexion & Bulletin Zakaria</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      padding: 30px 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(26, 35, 126, 0.3);
+    }
+    h2 {
+      color: #1a237e;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    /* Style connexion */
+    #login-section input[type="text"],
+    #login-section input[type="password"],
+    #login-section input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    #login-section button {
+      width: 100%;
+      padding: 12px;
+      background-color: #1a237e;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      margin-top: 12px;
+      transition: background-color 0.3s ease;
+    }
+    #login-section button:hover {
+      background-color: #3949ab;
+    }
+    #error {
+      color: #d32f2f;
+      margin-top: 15px;
+      font-weight: bold;
+      min-height: 20px;
+      text-align: center;
+    }
+    /* Style bulletin */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border: 3px solid #000;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+    th, td {
+      border: 1px solid #444;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #bbdefb;
+      font-weight: bold;
+    }
+    tr.section-title td {
+      background-color: #64b5f6;
+      font-weight: bold;
+      text-align: left;
+      padding-left: 10px;
+      color: #fff;
+    }
+    input.note-input {
+      width: 80px;
+      padding: 5px;
+      text-align: center;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+    }
+    tr.total-row td {
+      background-color: #fff59d;
+      font-weight: bold;
+    }
+    tr.final-row td {
+      background-color: #a5d6a7;
+      font-weight: bold;
+      font-size: 18px;
+    }
 
-  .app{max-width:420px;margin:20px auto;padding:12px}
-
-  .topbar{display:flex;align-items:center;margin-bottom:10px}
-  .back{font-size:22px;padding:6px 10px}
-
-  .header{display:flex;gap:16px;align-items:center}
-  .icon{
-    width:78px;height:78px;border-radius:18px;
-    background:#2f2cff;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .icon img{width:60%}
-
-  h1{font-size:22px;font-weight:700}
-  .sub{font-size:13px;color:var(--muted);margin-top:2px}
-
-  .meta-row{
-    display:flex;gap:14px;margin-top:8px;font-size:13px;color:var(--muted)
-  }
-
-  .install-row{margin:18px 0;text-align:center}
-  #installBtn{
-    background:var(--primary);color:#fff;border:0;
-    padding:12px 70px;border-radius:30px;font-size:17px;
-  }
-
-  /* Téléchargement */
-  #progressBox{
-    display:none;margin-top:10px;text-align:center;
-  }
-  #progressBarContainer{
-    width:90%;height:10px;background:#ddd;border-radius:10px;
-    margin:10px auto;
-  }
-  #progressBar{
-    height:100%;width:0%;background:var(--primary);border-radius:10px;
-  }
-
-  /* Screenshots */
-  .screens{margin-top:15px;display:flex;gap:10px}
-  .ss{
-    width:120px;height:200px;border-radius:14px;
-    background:#fff;overflow:hidden;
-    box-shadow:0 3px 10px rgba(0,0,0,0.1);
-  }
-  .ss img{width:100%;height:100%;object-fit:cover}
-
-  .about{background:#fff;margin-top:18px;padding:16px;border-radius:14px}
-  .about h2{font-size:17px;margin-bottom:8px}
-  .about p{color:var(--muted);line-height:1.4;font-size:14px;margin-bottom:10px}
-
-  .tag{
-    display:inline-block;border:1px solid #e0e0e0;
-    padding:8px 14px;border-radius:30px;font-size:13px;margin:6px 6px 0 0;
-  }
-</style>
+    /* ----------- IMPRESSION DU BULLETIN UNIQUEMENT ----------- */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #bulletin-section, #bulletin-section * {
+        visibility: visible;
+      }
+      #bulletin-section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      button {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<div class="app">
-
-  <div class="topbar">
-    <div class="back">←</div>
-  </div>
-
-  <div class="header">
-    <div class="icon">
-      <img src="icon.png" alt="">
+  <div class="container">
+    <!-- SECTION CONNEXION -->
+    <div id="login-section">
+      <h2>🔐 Connexion Zakaria</h2>
+      <input type="text" id="username" placeholder="Nom d'utilisateur" autocomplete="username" />
+      <input type="password" id="password" placeholder="Mot de passe" autocomplete="current-password" />
+      <input type="number" id="idcode" placeholder="Numéro d'identité" />
+      <button onclick="verifierConnexion()">Se connecter</button>
+      <div class="error" id="error"></div>
     </div>
-    <div>
-      <h1>Real Madrid</h1>
-      <div class="sub">Real Madrid C.F. — Contient des annonces</div>
-      <div class="meta-row">
-        <span><b>4,7 ★</b></span>
-        <span>178 k avis</span>
-        <span>53 Mo</span>
-        <span>3+</span>
-      </div>
+
+    <!-- SECTION BULLETIN (cachée par défaut) -->
+    <div id="bulletin-section" style="display:none;">
+      <h2>📘 Bulletin de Zakaria - Calcul Automatique</h2>
+
+      <!-- BOUTON IMPRIMER -->
+      <button onclick="imprimerBulletin()" 
+      style="background:#1a237e;color:white;padding:10px 20px;border:none;border-radius:5px;font-size:18px;cursor:pointer;margin-bottom:20px;">
+        🖨️ Imprimer le bulletin
+      </button>
+
+      <table id="bulletin">
+        <tr>
+          <th>Discipline</th>
+          <th>Coef.</th>
+          <th>Note</th>
+          <th>Total</th>
+        </tr>
+
+        <tr class="section-title"><td colspan="4">--- LETTRES ---</td></tr>
+        <tr><td>Français</td><td>3</td><td><input type="number" min="0" max="20" class="note-input" data-coef="3"></td><td class="total"></td></tr>
+        <tr><td>Anglais</td><td>2</td><td><input type="number" min="0" max="20" class="note-input" data-coef="2"></td><td class="total"></td></tr>
+        <tr><td>Histoire - Géographie</td><td>2</td><td><input type="number" min="0" max="20" class="note-input" data-coef="2"></td><td class="total"></td></tr>
+
+        <tr class="section-title"><td colspan="4">--- SCIENCES ---</td></tr>
+        <tr><td>Mathématiques</td><td>3</td><td><input type="number" min="0" max="20" class="note-input" data-coef="3"></td><td class="total"></td></tr>
+        <tr><td>Physique - Chimie</td><td>2</td><td><input type="number" min="0" max="20" class="note-input" data-coef="2"></td><td class="total"></td></tr>
+        <tr><td>SVT</td><td>2</td><td><input type="number" min="0" max="20" class="note-input" data-coef="2"></td><td class="total"></td></tr>
+
+        <tr class="section-title"><td colspan="4">--- AUTRES MATIÈRES ---</td></tr>
+        <tr><td>EDHC</td><td>1</td><td><input type="number" min="0" max="20" class="note-input" data-coef="1"></td><td class="total"></td></tr>
+        <tr><td>EPS</td><td>1</td><td><input type="number" min="0" max="20" class="note-input" data-coef="1"></td><td class="total"></td></tr>
+        <tr><td>Arts plastiques</td><td>1</td><td><input type="number" min="0" max="20" class="note-input" data-coef="1"></td><td class="total"></td></tr>
+        <tr><td>Musique</td><td>1</td><td><input type="number" min="0" max="20" class="note-input" data-coef="1"></td><td class="total"></td></tr>
+        <tr><td>TICE à l'école</td><td>1</td><td><input type="number" min="0" max="20" class="note-input" data-coef="1"></td><td class="total"></td></tr>
+        <tr><td>Conduite</td><td>1</td><td><input type="number" min="0" max="20" class="note-input" data-coef="1"></td><td class="total"></td></tr>
+        <tr><td>Entrepreneuriat</td><td>1</td><td><input type="number" min="0" max="20" class="note-input" data-coef="1"></td><td class="total"></td></tr>
+
+        <tr class="total-row">
+          <td colspan="2">Total général</td>
+          <td id="total-coefs">-</td>
+          <td id="total-points">-</td>
+        </tr>
+
+        <tr class="final-row">
+          <td colspan="3">🎯 Moyenne Générale</td>
+          <td id="moyenne-generale">-</td>
+        </tr>
+      </table>
     </div>
   </div>
 
-  <div class="install-row">
-    <button id="installBtn">Installer</button>
+  <script>
+    function verifierConnexion() {
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      const idcode = document.getElementById("idcode").value.trim();
+      const errorDiv = document.getElementById("error");
 
-    <div id="progressBox">
-      <p id="statusText">Téléchargement…</p>
-      <div id="progressBarContainer">
-        <div id="progressBar"></div>
-      </div>
-      <p id="percent">0%</p>
-    </div>
-  </div>
-
-  <div class="screens">
-    <div class="ss"><img src="cap1.png" alt=""></div>
-    <div class="ss"><img src="cap2.png" alt=""></div>
-    <div class="ss"><img src="cap3.png" alt=""></div>
-  </div>
-
-  <div class="about">
-    <h2>À propos de l'application</h2>
-
-    <p>
-      Plongez au cœur de l’univers du <b>Real Madrid</b>, le club le plus titré de l’histoire du football.  
-      Suivez l’actualité en temps réel, découvrez les coulisses du vestiaire, vivez chaque match comme si
-      vous étiez au Santiago Bernabéu et profitez d’un accès exclusif aux vidéos, interviews et statistiques
-      officielles du club.  
-    </p>
-
-    <p>
-      Rejoignez les millions de supporters à travers le monde et vibrez au rythme des Merengues.  
-      Votre passion. Votre club. Votre application officielle.
-    </p>
-
-    <div class="tag">Sports</div>
-    <div class="tag">Actualités</div>
-    <div class="tag">Football</div>
-  </div>
-
-</div>
-
-<!-- SCRIPT TÉLÉCHARGEMENT COMME PLAY STORE -->
-<script>
-  const btn = document.getElementById("installBtn");
-  const box = document.getElementById("progressBox");
-  const bar = document.getElementById("progressBar");
-  const percent = document.getElementById("percent");
-  const status = document.getElementById("statusText");
-
-  btn.addEventListener("click", function(){
-    btn.style.display = "none";
-    box.style.display = "block";
-
-    let p = 0;
-    let interval = setInterval(() => {
-      p += Math.random() * 7; 
-      if(p >= 100){
-        p = 100;
-        clearInterval(interval);
-        status.innerText = "Téléchargement terminé";
-        // Télécharger ton fichier APK
-        const link = document.createElement("a");
-        link.href = "monapp.apk"; // <-- METS TON FICHIER APK ICI
-        link.download = "monapp.apk";
-        link.click();
-        setTimeout(()=>{
-          status.innerText = "Installation…";
-        },1000);
+      if (user === "Niampa" && pass === "23214622C" && idcode === "22") {
+        errorDiv.innerText = "";
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("bulletin-section").style.display = "block";
+      } else {
+        errorDiv.innerText = "⛔ Informations incorrectes. Veuillez réessayer.";
       }
-      bar.style.width = p + "%";
-      percent.innerText = Math.floor(p) + "%";
-    }, 300);
-  });
-</script>
+    }
 
+    function imprimerBulletin() {
+      window.print();
+    }
+
+    // Calcul automatique des moyennes
+    const notesInputs = document.querySelectorAll(".note-input");
+    const totalCells = document.querySelectorAll("#bulletin .total");
+    const totalCoefs = document.getElementById("total-coefs");
+    const totalPoints = document.getElementById("total-points");
+    const moyenneGenerale = document.getElementById("moyenne-generale");
+
+    function calculer() {
+      let total = 0;
+      let coefs = 0;
+      notesInputs.forEach((input, index) => {
+        const coef = parseFloat(input.dataset.coef);
+        const note = parseFloat(input.value);
+        if (!isNaN(note) && note >= 0 && note <= 20) {
+          const val = note * coef;
+          totalCells[index].innerText = val.toFixed(2);
+          total += val;
+          coefs += coef;
+        } else {
+          totalCells[index].innerText = "";
+        }
+      });
+      totalPoints.innerText = total.toFixed(2);
+      totalCoefs.innerText = coefs;
+      moyenneGenerale.innerText = coefs ? (total / coefs).toFixed(2) : "-";
+    }
+
+    notesInputs.forEach(input => input.addEventListener("input", calculer));
+  </script>
 </body>
 </html>
